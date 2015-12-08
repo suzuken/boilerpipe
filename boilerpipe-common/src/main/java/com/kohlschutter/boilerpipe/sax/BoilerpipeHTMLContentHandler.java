@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.kohlschutter.boilerpipe.util.ITokenizer;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -76,6 +77,8 @@ public class BoilerpipeHTMLContentHandler implements ContentHandler {
   LinkedList<LinkedList<LabelAction>> labelStacks = new LinkedList<LinkedList<LabelAction>>();
   LinkedList<Integer> fontSizeStack = new LinkedList<Integer>();
 
+  protected ITokenizer tokenizer;
+
   /**
    * Recycles this instance.
    */
@@ -116,6 +119,31 @@ public class BoilerpipeHTMLContentHandler implements ContentHandler {
    */
   public BoilerpipeHTMLContentHandler(final TagActionMap tagActions) {
     this.tagActions = tagActions;
+    this.tokenizer = DefaultTokenizer();
+  }
+
+  /**
+   * Constructs a {@link BoilerpipeHTMLContentHandler} using the given Tokenizer implementation.
+   *
+   * @param tokenizer
+   */
+  public BoilerpipeHTMLContentHandler(ITokenizer tokenizer) {
+    this(DefaultTagActionMap.INSTANCE);
+    this.tokenizer = tokenizer;
+  }
+
+  /**
+   * Constructs a {@link BoilerpipeHTMLContentHandler} using the given {@link TagActionMap} and Tokenizer.
+   *
+   * @param tagActions The {@link TagActionMap} to use, e.g. {@link DefaultTagActionMap}.
+   */
+  public BoilerpipeHTMLContentHandler(final TagActionMap tagActions, ITokenizer tokenizer) {
+    this.tagActions = tagActions;
+    this.tokenizer = tokenizer;
+  }
+
+  public ITokenizer DefaultTokenizer() {
+    return new UnicodeTokenizer();
   }
 
   // @Override
@@ -306,7 +334,8 @@ public class BoilerpipeHTMLContentHandler implements ContentHandler {
           return;
         }
     }
-    final String[] tokens = UnicodeTokenizer.tokenize(tokenBuffer);
+    // final String[] tokens = UnicodeTokenizer.tokenize(tokenBuffer);
+    final String[] tokens = this.tokenizer.tokenize(tokenBuffer);
 
     int numWords = 0;
     int numLinkedWords = 0;
