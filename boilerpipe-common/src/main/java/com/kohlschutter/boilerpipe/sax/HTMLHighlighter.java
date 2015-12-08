@@ -28,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.xerces.parsers.AbstractSAXParser;
+import org.cyberneko.html.HTMLConfiguration;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -38,7 +39,6 @@ import com.kohlschutter.boilerpipe.BoilerpipeExtractor;
 import com.kohlschutter.boilerpipe.BoilerpipeProcessingException;
 import com.kohlschutter.boilerpipe.document.TextBlock;
 import com.kohlschutter.boilerpipe.document.TextDocument;
-import com.kohlschutter.boilerpipe.org.cyberneko.html.HTMLConfiguration;
 
 /**
  * Highlights text blocks in an HTML document that have been marked as "content" in the
@@ -135,8 +135,8 @@ public final class HTMLHighlighter {
    * Fetches the given {@link URL} using {@link HTMLFetcher} and processes the retrieved HTML using
    * the specified {@link BoilerpipeExtractor}.
    * 
-   * @param doc The processed {@link TextDocument}.
-   * @param is The original HTML document.
+   * @param url The processed {@link TextDocument}.
+   * @param extractor Extractor.
    * @return The highlighted HTML.
    * @throws BoilerpipeProcessingException
    */
