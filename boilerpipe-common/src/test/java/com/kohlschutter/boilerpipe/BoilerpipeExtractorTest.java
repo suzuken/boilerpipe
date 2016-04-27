@@ -1,12 +1,12 @@
 package com.kohlschutter.boilerpipe;
 
+import com.atilika.kuromoji.ipadic.Tokenizer;
 import com.kohlschutter.boilerpipe.extractors.ArticleExtractor;
 import com.kohlschutter.boilerpipe.sax.BoilerpipeHTMLContentHandler;
 import com.kohlschutter.boilerpipe.sax.BoilerpipeHTMLParser;
 import com.kohlschutter.boilerpipe.sax.BoilerpipeSAXInput;
 import com.kohlschutter.boilerpipe.sax.HTMLDocument;
 import com.kohlschutter.boilerpipe.util.KuromojiTokenizer;
-import org.atilika.kuromoji.Tokenizer;
 import org.junit.Test;
 
 import java.net.URL;
