@@ -11,14 +11,15 @@ import java.util.List;
  */
 public class KuromojiTokenizer implements ITokenizer{
     private Tokenizer.Mode mode;
+    private Tokenizer tokenizer;
 
     public KuromojiTokenizer(Tokenizer.Mode mode) {
         this.mode = mode;
+        this.tokenizer = new Tokenizer();
     }
 
     public String[] tokenize(CharSequence text) {
-        Tokenizer tokenizer = new Tokenizer();
-        List<Token> tokens = tokenizer.tokenize(text.toString());
+        List<Token> tokens = this.tokenizer.tokenize(text.toString());
         String[] array = new String[tokens.size()];
         int idx = 0;
         for (Token token : tokens)
