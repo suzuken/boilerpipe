@@ -1,13 +1,12 @@
 package com.kohlschutter.boilerpipe.util;
 
-
-import com.atilika.kuromoji.ipadic.Token;
-import com.atilika.kuromoji.ipadic.Tokenizer;
+import org.atilika.kuromoji.Token;
+import org.atilika.kuromoji.Tokenizer;
 
 import java.util.List;
 
 /**
- * KuromojiTokenizer provides tokens separeted by Kuromoji (ipadic).
+ * KuromojiTokenizer provides tokens separeted by Kuromoji.
  */
 public class KuromojiTokenizer implements ITokenizer{
     private Tokenizer.Mode mode;
@@ -15,7 +14,7 @@ public class KuromojiTokenizer implements ITokenizer{
 
     public KuromojiTokenizer(Tokenizer.Mode mode) {
         this.mode = mode;
-        this.tokenizer = new Tokenizer();
+        this.tokenizer = Tokenizer.builder().mode(Tokenizer.Mode.SEARCH).build();
     }
 
     public String[] tokenize(CharSequence text) {
@@ -23,7 +22,7 @@ public class KuromojiTokenizer implements ITokenizer{
         String[] array = new String[tokens.size()];
         int idx = 0;
         for (Token token : tokens)
-            array[idx++] = token.getSurface();
+            array[idx++] = token.getSurfaceForm();
         return array;
     }
 }
