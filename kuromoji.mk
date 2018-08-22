@@ -4,26 +4,32 @@ ARCHIVE_URL := https://github.com/downloads/atilika/kuromoji/$(ARCHIVE)
 ARCHIVE_DIR := kuromoji-$(VERSION)
 JAR_FILE := kuromoji-$(VERSION)/lib/kuromoji-$(VERSION).jar
 
-all: $(ARCHIVE)
+TARGET := lib/kuromoji-$(VERSION).jar
 
-$(ARCHIVE):
-	curl -L $(ARCHIVE_URL) -o $@
+all: $(TARGET)
 
-install: $(JAR_FILE)
-	mvn install:install-file \
-		-Dfile=$(JAR_FILE) \
-		-DgroupId=org.atilika.kuromoji \
-		-DartifactId=kuromoji \
-		-Dversion=$(VERSION) \
-		-Dpackaging=jar \
-		-DgeneratePom=true
+$(TARGET): $(JAR_FILE)
+	mkdir -p $(dir $@)
+	cp $< $@
 
 $(JAR_FILE): $(ARCHIVE_DIR)
 
 $(ARCHIVE_DIR): $(ARCHIVE)
 	tar xzf $<
 
+$(ARCHIVE):
+	curl -L $(ARCHIVE_URL) -o $@
+
+install: $(TARGET)
+	mvn install:install-file \
+		-Dfile=$< \
+		-DgroupId=org.atilika.kuromoji \
+		-DartifactId=kuromoji \
+		-Dversion=$(VERSION) \
+		-Dpackaging=jar \
+		-DgeneratePom=true
+
 clean:
-	rm -rf $(ARCHIVE) $(ARCHIVE_DIR)
+	rm -rf $(TARGET) $(ARCHIVE_DIR)
 
 .PHONY: all install clean
