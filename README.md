@@ -20,3 +20,13 @@ BoilerpipeHTMLContentHandler handler = new BoilerpipeHTMLContentHandler(new Kuro
 BoilerpipeHTMLParser parser = new BoilerpipeHTMLParser(handler);
 String boiledDocument = ArticleExtractor.INSTANCE.getText(in.getTextDocument(parser));
 ```
+
+### Kuromoji installation
+
+To install Kuromoji without depending on [http://www.atilika.org/nexus/content/repositories/atilika/](http://www.atilika.org/nexus/content/repositories/atilika/), do:
+
+```
+make -f kuromoji.mk all install
+```
+
+which will download and install JAR from [https://github.com/atilika/kuromoji/downloads](https://github.com/atilika/kuromoji/downloads).
