@@ -1,3 +1,5 @@
+MVN ?= mvn
+
 VERSION := 0.7.7
 ARCHIVE := kuromoji-$(VERSION).tar.gz
 ARCHIVE_URL := https://github.com/downloads/atilika/kuromoji/$(ARCHIVE)
@@ -21,7 +23,7 @@ $(ARCHIVE):
 	curl -L $(ARCHIVE_URL) -o $@
 
 install: $(TARGET)
-	mvn install:install-file \
+	$(MVN) install:install-file \
 		-Dfile=$< \
 		-DgroupId=org.atilika.kuromoji \
 		-DartifactId=kuromoji \
